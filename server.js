@@ -3,17 +3,17 @@ const express = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`);
+});
+
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query) {
         results = filterByQuery(req.query, results);
     }
     res.json(results);
-});
-
-app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
-});
+})
 
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
@@ -42,6 +42,5 @@ function filterByQuery(query, animalsArray) {
     if (query.name) {
         filteredResults = filteredResults.filter(animal => animal.name === query.name);
     }
-    
     return filteredResults;
 }
