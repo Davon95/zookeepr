@@ -37,7 +37,7 @@ app.post('/api/animals', (req, res) => {
     req.body.id = animals.length.toString();
 
     // If any data in req.body is incorrect, send 400 error back
-    if (!validateAnima(req.body)) {
+    if (!validateAnimal(req.body)) {
         res.status(400).send('The Animal is not properly formatted.');
     } else {
         const animal = createNewAnimal(req.body, animals);
@@ -91,7 +91,7 @@ function createNewAnimal(body, animalsArray) {
     return animal;
 }
 
-function validateAnima(animal) {
+function validateAnimal(animal) {
     if (!animal.name || typeof animal.name !== 'string') {
         return false;
     }
@@ -101,7 +101,7 @@ function validateAnima(animal) {
     if (!animal.diet || typeof animal.diet !== 'string') {
         return false;
     }
-    if (!animal.personalityTraits || typeof animal.personalityTraits !== 'string') {
+    if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)) {
         return false;
     }
     return true;

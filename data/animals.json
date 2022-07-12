@@ -108,6 +108,16 @@
         "hungry"
       ],
       "id": "10"
+    },
+    {
+      "name": "Ben",
+      "species": "cat",
+      "diet": "omnivore",
+      "personalityTraits": [
+        "lazy",
+        "playful"
+      ],
+      "id": "11"
     }
   ]
 }
