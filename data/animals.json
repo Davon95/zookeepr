@@ -118,6 +118,15 @@
         "playful"
       ],
       "id": "11"
+    },
+    {
+      "name": "James",
+      "species": "Cougar",
+      "diet": "carnivore",
+      "personalityTraits": [
+        "zany"
+      ],
+      "id": "12"
     }
   ]
 }

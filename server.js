@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { animals } = require('./data/animals')
 const express = require('express');
+const { application } = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -9,10 +10,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true}));
 // parse incoming JSON data
 app.use(express.json());
-
-app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
-});
+app.use(express.static('public'));
 
 app.get('/api/animals', (req, res) => {
     let results = animals;
@@ -45,6 +43,10 @@ app.post('/api/animals', (req, res) => {
     } 
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
 
@@ -74,6 +76,18 @@ function filterByQuery(query, animalsArray) {
     }
     return filteredResults;
 }
+
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 function findById(id, animalsArray) {
     const result = animalsArray.filter(animal => animal.id === id)[0];
@@ -106,3 +120,7 @@ function validateAnimal(animal) {
     }
     return true;
 }
+
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`);
+});
